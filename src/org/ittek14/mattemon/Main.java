@@ -10,7 +10,9 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class Main {
 	// Game States
-	GameState mainMenu;
+	private GameState currentState;
+	
+	private GameState mainMenu, inGame;
 	
 	 // We need to strongly reference callback instances.
     private GLFWErrorCallback errorCallback;
@@ -56,6 +58,7 @@ public class Main {
         if ( window == NULL )
             throw new RuntimeException("Failed to create the GLFW window");
  
+        
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
         glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
             @Override
@@ -83,6 +86,7 @@ public class Main {
         glfwShowWindow(window);
         
         mainMenu = new MainMenu();
+        currentState = mainMenu;
     }
  
     private void loop() {
@@ -92,7 +96,7 @@ public class Main {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
- 
+        
         // Set the clear color
         glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
  
@@ -100,9 +104,19 @@ public class Main {
         // the window or has pressed the ESCAPE key.
         while ( glfwWindowShouldClose(window) == GLFW_FALSE ) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
- 
+
+    		glColor3f(0, 0, 0);
+    		glBegin(GL_TRIANGLES);
+    		glVertex2f(100, 100);
+    		glVertex2f(50, 10);
+    		glVertex2f(10, 100);
+    		glEnd();
+    		
+            currentState.render();
             glfwSwapBuffers(window); // swap the color buffers
- 
+
+            currentState.update();
+            
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
