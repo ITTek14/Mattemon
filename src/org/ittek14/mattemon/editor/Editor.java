@@ -28,6 +28,7 @@ public class Editor extends StateBasedGame {
 
   @Override
   public void initStatesList(GameContainer container) throws SlickException {
+    addState(new ToolSelect());
     addState(new SpriteViewer());
   }
 }
