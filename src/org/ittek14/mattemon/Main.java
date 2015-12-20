@@ -23,13 +23,13 @@ public class Main extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawString("Howdy!", 10, 10);
+		g.drawString("Mattemon!", 10, 10);
 	}
 
 	public static void main(String[] args) {
 		try {
 			AppGameContainer appgc;
-			appgc = new AppGameContainer(new Main("Simple Slick Game"));
+			appgc = new AppGameContainer(new Main("Mattemon"));
 			appgc.setDisplayMode(640, 480, false);
 			appgc.start();
 		} catch (SlickException ex) {
