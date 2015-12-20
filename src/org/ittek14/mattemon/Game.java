@@ -23,14 +23,14 @@ public class Game extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawString("Mattemon!", 10, 10);
+		g.drawString("Mattemon!", 50, 50);
 	}
 
 	public static void main(String[] args) {
 		try {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new Game("Mattemon"));
-			appgc.setDisplayMode(640, 480, false);
+			appgc.setDisplayMode(800, 600, false);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
