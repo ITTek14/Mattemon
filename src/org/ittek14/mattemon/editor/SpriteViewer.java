@@ -1,14 +1,22 @@
 package org.ittek14.mattemon.editor;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.ittek14.mattemon.Game;
+import org.ittek14.mattemon.gui.GUIButton;
+import org.ittek14.mattemon.gui.GUIContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SpriteViewer implements GameState {
-
+  private GUIContainer gui;
+  
   @Override
   public void mouseClicked(int button, int x, int y, int clickCount) {
     // TODO Auto-generated method stub
@@ -35,8 +43,8 @@ public class SpriteViewer implements GameState {
 
   @Override
   public void mouseReleased(int button, int x, int y) {
-    System.out.println("B");
-
+    
+    
   }
 
   @Override
@@ -150,12 +158,22 @@ public class SpriteViewer implements GameState {
   @Override
   public int getID() {
     // TODO Auto-generated method stub
-    return 0;
+    return 1;
   }
 
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    gui = new GUIContainer();
+    gui.addElement(new GUIButton(container, new Rectangle(500, 200, container.getDefaultFont().getWidth("Sprite Previewer") + 8, 
+        container.getDefaultFont().getHeight("Sprite Previewer") + 8), "Sprite Previewer"){
+      protected void trigger(int button) {
+        System.out.println("Hi");
+      }
 
+      public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        bounds.setCenterX(container.getWidth()/2);
+      }
+    });
   }
 
   @Override
@@ -165,12 +183,12 @@ public class SpriteViewer implements GameState {
 
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-    g.drawString("Mattemon!", 50, 50);
+    gui.render(container, game, g);
   }
 
   @Override
   public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-    // TODO Auto-generated method stub
+    gui.update(container, game, delta);
   }
 
 }

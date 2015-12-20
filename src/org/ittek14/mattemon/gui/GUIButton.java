@@ -1,21 +1,27 @@
 package org.ittek14.mattemon.gui;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
+
 
 public abstract class GUIButton extends GUIElement {
   private boolean pressed;
-
+  private String text;
   protected abstract void trigger(int button);
 
-  public GUIButton(Rectangle bounds) {
+  public GUIButton(GameContainer gc, Rectangle bounds, String text) {
+    super (gc);
     this.bounds = bounds;
+    this.text = text;
   }
 
   @Override
   public void mouseClicked(int button, int x, int y, int clickCount) {
-    // TODO Auto-generated method stub
-
+    
   }
 
   @Override
@@ -36,8 +42,10 @@ public abstract class GUIButton extends GUIElement {
 
   @Override
   public void mouseReleased(int button, int x, int y) {
-    if (pressed)
+    if(this.bounds.contains(x, y)) {
       trigger(button);
+    }
+    pressed = false;
   }
 
   @Override
@@ -145,5 +153,9 @@ public abstract class GUIButton extends GUIElement {
     return pressed;
   }
 
-  public abstract void draw(float x, float y);
+  public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    g.drawString(text, bounds.getX(), bounds.getY());
+  }
+  
+  public abstract void update(GameContainer container, StateBasedGame game, int delta) throws SlickException;
 }
