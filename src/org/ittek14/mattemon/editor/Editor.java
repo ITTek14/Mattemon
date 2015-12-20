@@ -10,24 +10,24 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Editor extends StateBasedGame {
 
-    public Editor(String gamename) {
-        super(gamename);
+  public Editor(String gamename) {
+    super(gamename);
+  }
+
+  public static void main(String[] args) {
+    try {
+      AppGameContainer appgc;
+      appgc = new AppGameContainer(new Editor("Mattemon Dev Tools"));
+      appgc.setDisplayMode(800, 600, false);
+      appgc.start();
+    } catch (SlickException ex) {
+      Logger.getLogger(Editor.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    public static void main(String[] args) {
-        try {
-            AppGameContainer appgc;
-            appgc = new AppGameContainer(new Editor("Mattemon Dev Tools"));
-            appgc.setDisplayMode(800, 600, false);
-            appgc.start();
-        } catch (SlickException ex) {
-            Logger.getLogger(Editor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+  }
 
-    }
-
-    @Override
-    public void initStatesList(GameContainer container) throws SlickException {
-        addState(new SpriteViewer());
-    }
+  @Override
+  public void initStatesList(GameContainer container) throws SlickException {
+    addState(new SpriteViewer());
+  }
 }

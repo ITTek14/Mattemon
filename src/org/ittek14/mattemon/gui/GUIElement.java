@@ -5,5 +5,5 @@ import org.newdawn.slick.Renderable;
 import org.newdawn.slick.geom.Rectangle;
 
 public abstract class GUIElement implements InputListener, Renderable {
-    protected Rectangle bounds;
+  protected Rectangle bounds;
 }
