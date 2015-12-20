@@ -35,6 +35,5 @@ public class Game extends BasicGame {
 		} catch (SlickException ex) {
 			Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
 		}
-		
 	}
 }

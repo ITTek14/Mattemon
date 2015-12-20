@@ -1,4 +1,5 @@
 package org.ittek14.mattemon.editor;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -7,7 +8,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SpriteViewer implements GameState {
-
+	
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {
 		// TODO Auto-generated method stub
@@ -34,7 +35,7 @@ public class SpriteViewer implements GameState {
 
 	@Override
 	public void mouseReleased(int button, int x, int y) {
-		// TODO Auto-generated method stub
+		System.out.println("B");
 		
 	}
 
@@ -59,7 +60,7 @@ public class SpriteViewer implements GameState {
 	@Override
 	public boolean isAcceptingInput() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -155,7 +156,7 @@ public class SpriteViewer implements GameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		
-		
+
 	}
 
 	@Override
@@ -166,15 +167,12 @@ public class SpriteViewer implements GameState {
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-
 		g.drawString("Mattemon!", 50, 50);
-		
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		// TODO Auto-generated method stub
-		
 	}
 	
 }
