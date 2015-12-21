@@ -20,6 +20,7 @@ public class Editor extends StateBasedGame {
       appgc = new AppGameContainer(new Editor("Mattemon Dev Tools"));
       appgc.setDisplayMode(800, 600, false);
       appgc.start();
+      appgc.getGraphics().setAntiAlias(false);
     } catch (SlickException ex) {
       Logger.getLogger(Editor.class.getName()).log(Level.SEVERE, null, ex);
     }

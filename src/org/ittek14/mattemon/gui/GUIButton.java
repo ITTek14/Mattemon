@@ -9,13 +9,19 @@ import org.newdawn.slick.state.StateBasedGame;
 
 
 public abstract class GUIButton extends GUIElement {
-  private boolean pressed;
-  private String text;
+  protected boolean pressed;
+  protected String text;
   protected abstract void trigger(int button);
 
   public GUIButton(GameContainer gc, Rectangle bounds, String text) {
     super (gc);
     this.bounds = bounds;
+    this.text = text;
+  }
+  
+  public GUIButton(GameContainer gc, int x, int y, String text) {
+    super (gc);
+    this.bounds = new Rectangle(x, y, gc.getDefaultFont().getWidth(text), gc.getDefaultFont().getLineHeight());
     this.text = text;
   }
 
@@ -51,19 +57,16 @@ public abstract class GUIButton extends GUIElement {
   @Override
   public void mouseWheelMoved(int change) {
     // TODO Auto-generated method stub
-
   }
 
   @Override
   public void inputEnded() {
     // TODO Auto-generated method stub
-
   }
 
   @Override
   public void inputStarted() {
     // TODO Auto-generated method stub
-
   }
 
   @Override

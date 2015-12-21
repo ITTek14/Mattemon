@@ -16,4 +16,9 @@ public abstract class GUIElement implements InputListener {
   
   public abstract void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException;
   public abstract void update(GameContainer container, StateBasedGame game, int delta) throws SlickException;
+  
+  public Rectangle getBounds(){
+    return bounds;
+  }
+  
 }
