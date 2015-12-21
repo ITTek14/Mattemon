@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.ittek14.mattemon.gui.GUIAnchor;
 import org.ittek14.mattemon.gui.GUIButton;
 import org.ittek14.mattemon.gui.GUIContainer;
+import org.ittek14.mattemon.gui.GUISelect;
 import org.ittek14.mattemon.gui.GUIUtil;
 import org.ittek14.mattemon.utility.FileUtil;
 import org.newdawn.slick.Animation;
@@ -19,6 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class SpriteViewer implements GameState {
   private GUIContainer gui;
+  private GUISelect select;
   private ArrayList<File> bmpFiles = new ArrayList<File>();
   private SpriteSheet spriteSheet;
   private Animation anim;
@@ -170,6 +172,7 @@ public class SpriteViewer implements GameState {
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
     gui = new GUIContainer();
+    select = (GUISelect) gui.addElement(new GUISelect(container, 10, 50));
     gui.addElement(new GUIButton(container, 0, 128, "Ping-Pong: OFF ") {
       private boolean pingpong = false;
       @Override
@@ -194,6 +197,8 @@ public class SpriteViewer implements GameState {
   }
 
   public void updateList() {
+    select.clearOptions();
+    
     bmpFiles = new ArrayList<File>();
     for(File f : new File("resources").listFiles(FileUtil.filesOnly)){
       bmpFiles.add(f);
@@ -205,6 +210,9 @@ public class SpriteViewer implements GameState {
       }
     }
     
+    for(File f : bmpFiles) {
+      select.addOption(f.getPath());
+    }
   }
   
   @Override
