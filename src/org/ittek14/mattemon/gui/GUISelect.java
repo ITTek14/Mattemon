@@ -14,7 +14,7 @@ import org.newdawn.slick.tests.FontTest;
 
 public class GUISelect extends GUIElement {
   private ArrayList<GUIOption> options = new ArrayList<GUIOption>();
-  private GUIOption selected = null;
+  private int selected = 0;
   private Font font;
   
   public GUISelect(GameContainer gc, int x, int y) {
@@ -51,12 +51,12 @@ public class GUISelect extends GUIElement {
   }
 
   public void select(GUIOption op) {
-    selected = op;
-    op.onSelect();
+    select(options.indexOf(op));
   }
   
   public void select(int op) {
-    select(options.get(op));
+    selected = op;
+    options.get(op).onSelect();
   }
   
   @Override
@@ -163,7 +163,7 @@ public class GUISelect extends GUIElement {
   
   public void addOption(GUIOption op) {
     options.add(op);
-    if(selected == null)
+    if(options.get(selected) == null)
     {
       select(options.get(options.size()-1));
     }
@@ -178,11 +178,15 @@ public class GUISelect extends GUIElement {
   public void clearOptions() {
     options.clear();
   }
+  
+  public int countOptions() {
+    return options.size();
+  }
 
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     for(int i = 0; i < options.size() ; i++) {
-      if(options.get(i) == selected) {
+      if(options.get(i) == options.get(selected)) {
         g.drawRect(bounds.getX(), bounds.getY() + i * font.getLineHeight() - 1, font.getWidth(options.get(i).name), font.getLineHeight() + 2);
       }
       font.drawString(bounds.getX(), bounds.getY() + i * font.getLineHeight(), options.get(i).name);

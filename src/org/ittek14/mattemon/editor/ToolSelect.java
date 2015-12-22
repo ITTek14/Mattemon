@@ -157,7 +157,7 @@ public class ToolSelect implements GameState{
 
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    gui = new GUIContainer();
+    gui = new GUIContainer(container);
     gui.addElement(new GUIButton(container, new Rectangle(0, 20, container.getDefaultFont().getWidth("Sprite Previewer") + 8, 
         container.getDefaultFont().getHeight("Sprite Previewer") + 8), "Sprite Previewer"){
       protected void trigger(int button) {

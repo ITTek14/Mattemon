@@ -10,6 +10,7 @@ import org.ittek14.mattemon.gui.GUIOption;
 import org.ittek14.mattemon.gui.GUISelect;
 import org.ittek14.mattemon.gui.GUIUtil;
 import org.ittek14.mattemon.utility.FileUtil;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,7 +22,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SpriteViewer implements GameState {
-  private GUIContainer gui;
+  private GUIContainer gui, browser;
   private GUISelect select;
   private ArrayList<File> bmpFiles = new ArrayList<File>();
   private SpriteSheet spriteSheet;
@@ -173,8 +174,9 @@ public class SpriteViewer implements GameState {
 
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    gui = new GUIContainer();
-    select = (GUISelect) gui.addElement(new GUISelect(container, 10, 50));
+    gui = new GUIContainer(container);
+    browser = (GUIContainer) gui.addElement(new GUIContainer(container));
+    select = (GUISelect) browser.addElement(new GUISelect(container, 10, 50));
   }
 
   public void updateList() {
@@ -196,6 +198,7 @@ public class SpriteViewer implements GameState {
         public void onSelect() {
           try {
             spriteSheet = new SpriteSheet(new Image(f.getAbsolutePath()), 16, 16);
+            spriteSheet.setFilter(Image.FILTER_NEAREST);
           } catch (SlickException e) {
             e.printStackTrace();
           }
