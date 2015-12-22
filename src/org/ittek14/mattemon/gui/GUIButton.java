@@ -70,12 +70,6 @@ public abstract class GUIButton extends GUIElement {
   }
 
   @Override
-  public boolean isAcceptingInput() {
-    // TODO Auto-generated method stub
-    return true;
-  }
-
-  @Override
   public void setInput(Input input) {
     // TODO Auto-generated method stub
 

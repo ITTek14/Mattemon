@@ -21,4 +21,10 @@ public abstract class GUIElement implements InputListener {
     return bounds;
   }
   
+
+  @Override
+  public boolean isAcceptingInput() {
+    return true;
+  }
+  
 }

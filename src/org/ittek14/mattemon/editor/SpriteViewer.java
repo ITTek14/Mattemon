@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import org.ittek14.mattemon.gui.GUIAnchor;
 import org.ittek14.mattemon.gui.GUIButton;
 import org.ittek14.mattemon.gui.GUIContainer;
+import org.ittek14.mattemon.gui.GUIOption;
 import org.ittek14.mattemon.gui.GUISelect;
 import org.ittek14.mattemon.gui.GUIUtil;
 import org.ittek14.mattemon.utility.FileUtil;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -173,27 +175,6 @@ public class SpriteViewer implements GameState {
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
     gui = new GUIContainer();
     select = (GUISelect) gui.addElement(new GUISelect(container, 10, 50));
-    gui.addElement(new GUIButton(container, 0, 128, "Ping-Pong: OFF ") {
-      private boolean pingpong = false;
-      @Override
-      public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        bounds.setX(container.getWidth());
-        bounds.setX(GUIUtil.anchor(bounds, GUIAnchor.RIGHT).x - 32);
-        if(pingpong){
-          text = "Ping-Pong: ON ";
-        }else{
-          text = "Ping-Pong: OFF";
-        }
-      }
-      
-      @Override
-      protected void trigger(int button) {
-        if(anim != null){
-          pingpong = !pingpong;
-          anim.setPingPong(pingpong);
-        }
-      }
-    });
   }
 
   public void updateList() {
@@ -211,7 +192,16 @@ public class SpriteViewer implements GameState {
     }
     
     for(File f : bmpFiles) {
-      select.addOption(f.getPath());
+      select.addOption(new GUIOption(f.getPath()) {
+        public void onSelect() {
+          try {
+            spriteSheet = new SpriteSheet(new Image(f.getAbsolutePath()), 16, 16);
+          } catch (SlickException e) {
+            e.printStackTrace();
+          }
+          anim = new Animation(spriteSheet, 320);
+        }
+      });
     }
   }
   

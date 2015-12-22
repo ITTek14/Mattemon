@@ -2,6 +2,7 @@ package org.ittek14.mattemon.gui;
 
 import java.util.ArrayList;
 
+import org.ittek14.mattemon.Game;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,19 +10,21 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tests.FontTest;
 
 public class GUISelect extends GUIElement {
   private ArrayList<GUIOption> options = new ArrayList<GUIOption>();
   private GUIOption selected = null;
+  private Font font;
   
   public GUISelect(GameContainer gc, int x, int y) {
     super(gc);
+    font = gc.getDefaultFont();
     bounds = new Rectangle(x,y,1,1);
   }
 
   @Override
   public void mouseClicked(int arg0, int arg1, int arg2, int arg3) {
-    // TODO Auto-generated method stub
     
   }
 
@@ -39,13 +42,25 @@ public class GUISelect extends GUIElement {
 
   @Override
   public void mousePressed(int button, int x, int y) {
-    // TODO Auto-generated method stub
-    
+    for(int i = 0; i < options.size() ; i++) {
+      GUIOption option = options.get(i);
+      if(new Rectangle(bounds.getX(), bounds.getY() + i * font.getLineHeight() - 1, font.getWidth(option.name), font.getLineHeight() + 2).contains(x,y)){
+        select(i);
+      }
+    }
   }
 
+  public void select(GUIOption op) {
+    selected = op;
+    op.onSelect();
+  }
+  
+  public void select(int op) {
+    select(options.get(op));
+  }
+  
   @Override
   public void mouseReleased(int button, int x, int y) {
-    // TODO Auto-generated method stub
     
   }
 
@@ -67,11 +82,6 @@ public class GUISelect extends GUIElement {
     
   }
 
-  @Override
-  public boolean isAcceptingInput() {
-    // TODO Auto-generated method stub
-    return false;
-  }
 
   @Override
   public void setInput(Input arg0) {
@@ -151,18 +161,12 @@ public class GUISelect extends GUIElement {
     
   }
   
-  public void addOption(String name) {
-    options.add(new GUIOption(name));
-  }
-  
-  public void addOptions(String[] names) {
-    for (String name : names){
-      addOption(name);
-    }
-  }
-  
   public void addOption(GUIOption op) {
-    addOption(op);
+    options.add(op);
+    if(selected == null)
+    {
+      select(options.get(options.size()-1));
+    }
   }
   
   public void addOptions(GUIOption[] ops) {
@@ -177,7 +181,6 @@ public class GUISelect extends GUIElement {
 
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-    Font font = container.getDefaultFont();
     for(int i = 0; i < options.size() ; i++) {
       if(options.get(i) == selected) {
         g.drawRect(bounds.getX(), bounds.getY() + i * font.getLineHeight() - 1, font.getWidth(options.get(i).name), font.getLineHeight() + 2);
