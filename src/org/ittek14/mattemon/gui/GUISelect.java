@@ -2,7 +2,7 @@ package org.ittek14.mattemon.gui;
 
 import java.util.ArrayList;
 
-import org.ittek14.mattemon.Game;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,11 +10,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.tests.FontTest;
 
 public class GUISelect extends GUIElement {
   private ArrayList<GUIOption> options = new ArrayList<GUIOption>();
-  private int selected = 0;
+  private int selected = -1;
   private Font font;
   
   public GUISelect(GameContainer gc, int x, int y) {
@@ -163,7 +162,7 @@ public class GUISelect extends GUIElement {
   
   public void addOption(GUIOption op) {
     options.add(op);
-    if(options.get(selected) == null)
+    if(selected >= 0 && selected < options.size())
     {
       select(options.get(options.size()-1));
     }
@@ -177,6 +176,7 @@ public class GUISelect extends GUIElement {
   
   public void clearOptions() {
     options.clear();
+    selected = -1;
   }
   
   public int countOptions() {
@@ -185,9 +185,12 @@ public class GUISelect extends GUIElement {
 
   @Override
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    g.setColor(Color.white);
     for(int i = 0; i < options.size() ; i++) {
-      if(options.get(i) == options.get(selected)) {
-        g.drawRect(bounds.getX(), bounds.getY() + i * font.getLineHeight() - 1, font.getWidth(options.get(i).name), font.getLineHeight() + 2);
+      if(selected >= 0 && selected < options.size()){
+        if(options.get(i) == options.get(selected)) {
+          g.drawRect(bounds.getX(), bounds.getY() + i * font.getLineHeight() - 1, font.getWidth(options.get(i).name), font.getLineHeight() + 2);
+        }
       }
       font.drawString(bounds.getX(), bounds.getY() + i * font.getLineHeight(), options.get(i).name);
     }

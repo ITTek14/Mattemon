@@ -3,21 +3,22 @@ package org.ittek14.mattemon.editor;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.ittek14.mattemon.gui.GUIAnchor;
 import org.ittek14.mattemon.gui.GUIButton;
 import org.ittek14.mattemon.gui.GUIContainer;
 import org.ittek14.mattemon.gui.GUIOption;
 import org.ittek14.mattemon.gui.GUISelect;
-import org.ittek14.mattemon.gui.GUIUtil;
 import org.ittek14.mattemon.utility.FileUtil;
-import org.lwjgl.opengl.GL11;
+import org.ittek14.mattemon.utility.MathUtil;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -28,6 +29,8 @@ public class SpriteViewer implements GameState {
   private SpriteSheet spriteSheet;
   private Animation anim;
   private float zoom = 1;
+  private Vector2f maxSize = new Vector2f(180,200);
+  private Vector2f minSize = new Vector2f(0,0);
   private float zoomedWidth, zoomedHeight;
   
   @Override
@@ -175,13 +178,41 @@ public class SpriteViewer implements GameState {
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
     gui = new GUIContainer(container);
-    browser = (GUIContainer) gui.addElement(new GUIContainer(container));
-    select = (GUISelect) browser.addElement(new GUISelect(container, 10, 50));
+    
+    // GUI Container for browsing files
+    browser = (GUIContainer) gui.addElement(new GUIContainer(container){
+      private GUISelect select;
+      @Override
+      public void init(){
+        this.select = (GUISelect) addElement(new GUISelect(container, 10, 50));
+        SpriteViewer.this.select = this.select;
+        
+        //Button for refreshing File List
+        addElement(new GUIButton(container, 0, 0, "Refresh") {
+          @Override
+          public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+            bounds.setX(select.getBounds().getX() + 3);
+            bounds.setY(select.getBounds().getY() + select.countOptions() * container.getDefaultFont().getLineHeight() + 4);
+          }
+          
+          @Override
+          protected void trigger(int button) {
+            updateList();
+          }
+          
+          @Override
+          public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException{
+            Font font = g.getFont();
+            g.drawRect(bounds.getX()-3, bounds.getY()-1, font.getWidth(text)+6, font.getLineHeight() + 2); 
+            super.render(container, game, g);
+          }
+        }); 
+      }
+    });
+    
   }
 
   public void updateList() {
-    select.clearOptions();
-    
     bmpFiles = new ArrayList<File>();
     for(File f : new File("resources").listFiles(FileUtil.filesOnly)){
       bmpFiles.add(f);
@@ -193,6 +224,7 @@ public class SpriteViewer implements GameState {
       }
     }
     
+    select.clearOptions();
     for(File f : bmpFiles) {
       select.addOption(new GUIOption(f.getPath()) {
         public void onSelect() {
@@ -223,10 +255,15 @@ public class SpriteViewer implements GameState {
 
   @Override
   public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    gui.update(container, game, delta);
+    
+    
     if(anim != null){
+      float animSize = (float) Math.hypot(anim.getWidth(), anim.getHeight()); //diagonal size of sprite
+      zoom = (float) MathUtil.clamp(zoom, minSize.length() / animSize, maxSize.length() / animSize);
+      
       zoomedWidth = anim.getWidth() * zoom;
       zoomedHeight = anim.getHeight() * zoom;
     }
-    gui.update(container, game, delta);
   }
 }

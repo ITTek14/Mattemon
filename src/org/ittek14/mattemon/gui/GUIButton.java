@@ -1,5 +1,6 @@
 package org.ittek14.mattemon.gui;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -27,7 +28,7 @@ public abstract class GUIButton extends GUIElement {
 
   @Override
   public void mouseClicked(int button, int x, int y, int clickCount) {
-    
+    pressed = this.bounds.contains(x, x);
   }
 
   @Override
@@ -43,7 +44,7 @@ public abstract class GUIButton extends GUIElement {
 
   @Override
   public void mousePressed(int button, int x, int y) {
-    pressed = this.bounds.contains(x, x);
+    pressed = bounds.contains(x, y);
   }
 
   @Override
@@ -151,6 +152,10 @@ public abstract class GUIButton extends GUIElement {
   }
 
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    g.setColor(Color.white);
+    if(pressed) {
+      g.setColor(Color.gray);
+    }
     g.drawString(text, bounds.getX(), bounds.getY());
   }
   

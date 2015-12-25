@@ -13,12 +13,15 @@ public class GUIContainer extends GUIElement {
 
   public GUIContainer(GameContainer gc) {
     super(gc);
+    init();
   }
 
   public GUIElement addElement(GUIElement e) {
     elements.add(e);
     return e;
   }
+  
+  public void init(){};
   
   public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     for (int i = 0; i < elements.size(); i++){
@@ -32,6 +35,17 @@ public class GUIContainer extends GUIElement {
     }
   }
 
+  //Return the first element of the specified type
+  @SuppressWarnings("unchecked")
+  public <T> T getFirstElement(Class<T> a) {
+    for(GUIElement e : elements){
+      if(e.getClass() == a) {
+        return (T) e;
+      }
+    }
+    return null;
+  }
+  
   @Override
   public void mouseClicked(int button, int x, int y, int clickCount) {
     // TODO Auto-generated method stub
