@@ -1,3 +1,5 @@
+// Additional math utilities, could be replaced by third party library
+
 package org.ittek14.mattemon.utility;
 
 public class MathUtil {

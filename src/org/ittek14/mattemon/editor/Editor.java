@@ -1,3 +1,5 @@
+// developer tools for the Mattemon project
+
 package org.ittek14.mattemon.editor;
 
 import java.util.logging.Level;
@@ -9,7 +11,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Editor extends StateBasedGame {
-
   public Editor(String gamename) {
     super(gamename);
   }
@@ -24,7 +25,6 @@ public class Editor extends StateBasedGame {
     } catch (SlickException ex) {
       Logger.getLogger(Editor.class.getName()).log(Level.SEVERE, null, ex);
     }
-
   }
 
   @Override
