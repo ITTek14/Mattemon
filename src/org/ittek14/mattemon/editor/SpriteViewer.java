@@ -1,4 +1,4 @@
-// The Sprite Viewer tool for previewing animated spritesheets
+// the Sprite Viewer tool for previewing animated spritesheets
 // TODO add gui for selecting files
 
 package org.ittek14.mattemon.editor;
