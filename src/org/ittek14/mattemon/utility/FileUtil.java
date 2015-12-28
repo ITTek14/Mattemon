@@ -21,6 +21,7 @@ public class FileUtil {
   };
   
   public static File[] getAllSubdirectories(File f) {
+    // return an array containing all directories inside f
     File[] dirs_in_root = f.listFiles(directoriesOnly);
     if(dirs_in_root == null) {
       return null;

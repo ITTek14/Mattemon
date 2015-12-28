@@ -38,6 +38,7 @@ public class SpriteViewer extends BasicGameState {
 
   @Override
   public void mouseWheelMoved(int change) {
+    //change zoom
     zoom = Math.max(zoom + zoom * (float)change / 1500, 0.01f);
   }
 
@@ -107,11 +108,15 @@ public class SpriteViewer extends BasicGameState {
   }
 
   public void updateList() {
+    // update list of avaliable files
     imgFiles = new ArrayList<File>();
+    
+    //get all files in /resources
     for(File f : new File("resources").listFiles(FileUtil.filesOnly)){
       imgFiles.add(f);
     }
     
+    //get all files in all subdirectories of /resources
     for(File f1 : FileUtil.getAllSubdirectories(new File("resources"))) {
       for(File f2 : f1.listFiles(FileUtil.filesOnly)){
         imgFiles.add(f2);
