@@ -137,8 +137,6 @@ public class SpriteViewer extends BasicGameState {
 
   @Override
   public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-    
-    
     if(loadedAnimation != null){
       // TODO limit zooming
       zoomedWidth = loadedAnimation.getWidth() * zoom;

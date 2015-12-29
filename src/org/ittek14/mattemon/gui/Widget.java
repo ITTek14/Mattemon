@@ -7,6 +7,10 @@ import org.newdawn.slick.InputListener;
 
 public abstract class Widget implements InputListener {
   
+  public Widget(GameContainer gc){
+    gc.getInput().addListener(this);
+  }
+  
   public abstract void update(GameContainer gc, int delta);
   public abstract void render(GameContainer gc, Graphics g);
 

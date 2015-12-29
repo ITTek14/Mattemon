@@ -1,16 +1,25 @@
 // select what tool you want to open from this screen
 package org.ittek14.mattemon.editor;
 
+import org.ittek14.mattemon.gui.Button;
+import org.ittek14.mattemon.gui.GUI;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 // TODO implement GUI button to switch state to SpriteViewer
 
 public class ToolSelect extends BasicGameState{
+  private GUI gui;
+  private Button spriteViewer;
+  
+  @SuppressWarnings("unused")
+  private Button levelEditor;
+  
   @Override
   public void mouseClicked(int button, int x, int y, int clickCount) {}
 
@@ -37,7 +46,7 @@ public class ToolSelect extends BasicGameState{
 
   @Override
   public boolean isAcceptingInput() {
-    return false;
+    return true;
   }
 
   @Override
@@ -88,15 +97,28 @@ public class ToolSelect extends BasicGameState{
   }
 
   @Override
-  public void init(GameContainer container, StateBasedGame game) throws SlickException {}
+  public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    gui = new GUI();
+    spriteViewer = new Button(container, new Vector2f(container.getWidth()/2,container.getHeight()/2), "Sprite Viewer"){
+      @Override
+      public void onClick(int button) {
+        game.enterState(1);
+      }
+    };
+    gui.addWidget(spriteViewer);
+  }
 
   @Override
   public void leave(GameContainer container, StateBasedGame game) throws SlickException {}
 
   @Override
-  public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {}
+  public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    gui.render(container, g);
+  }
 
   @Override
-  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {}
+  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    gui.update(container, delta);
+  }
 
 }

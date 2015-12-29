@@ -1,13 +1,15 @@
 package org.ittek14.mattemon.gui;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 public class GUI {
-  public Widget[] widgets;
+  public ArrayList<Widget> widgets;
   
   public GUI() {
-    
+    widgets = new ArrayList<Widget>();
   }
   
   public void update(GameContainer gc, int delta) {
@@ -20,5 +22,9 @@ public class GUI {
     for(Widget widget : widgets) {
       widget.render(gc, g);
     }
+  }
+
+  public void addWidget(Widget widget) {
+    widgets.add(widget);
   }
 }
