@@ -6,6 +6,7 @@ package org.ittek14.mattemon.editor;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.ittek14.mattemon.gui.Button;
 import org.ittek14.mattemon.gui.GUI;
 import org.ittek14.mattemon.utility.FileUtil;
 import org.newdawn.slick.Animation;
@@ -13,6 +14,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -108,7 +110,12 @@ public class SpriteViewer extends BasicGameState {
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
     gui = new GUI();
-    
+    gui.addWidget(new Button(container, new Vector2f(50,50), "Back") {
+      @Override
+      public void onClick(int button) {
+        game.enterState(0);
+      }
+    });
   }
 
   public void updateList() {
@@ -137,6 +144,7 @@ public class SpriteViewer extends BasicGameState {
     if(loadedAnimation != null) {
       loadedAnimation.draw(container.getWidth()/2 - zoomedWidth/2, container.getHeight()/2 - zoomedHeight/2, zoomedWidth, zoomedHeight);
     }
+    gui.render(container, g);
   }
 
   @Override
@@ -146,5 +154,6 @@ public class SpriteViewer extends BasicGameState {
       zoomedWidth = loadedAnimation.getWidth() * zoom;
       zoomedHeight = loadedAnimation.getHeight() * zoom;
     }
+    gui.update(container, delta);
   }
 }
