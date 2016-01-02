@@ -17,7 +17,7 @@ public abstract class Button extends Widget {
   protected int[] mouseButtons;
   
   public Button(GameContainer gc, Vector2f position, String text) {
-    super(gc);
+    super(gc, position);
     this.text = text;
     this.font = gc.getDefaultFont();
     marginSize = 16;
@@ -55,6 +55,6 @@ public abstract class Button extends Widget {
     }
     g.fill(bounds);
     
-    font.drawString(bounds.getCenterX() - font.getWidth(text)/2, bounds.getCenterY() - font.getHeight(text)/2, text);
+    font.drawString(position.getX() - font.getWidth(text)/2, position.getY() - font.getHeight(text)/2, text);
   }
 }

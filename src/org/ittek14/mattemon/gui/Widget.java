@@ -4,11 +4,19 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.InputListener;
+import org.newdawn.slick.geom.Vector2f;
 
 public abstract class Widget implements InputListener {
+  protected Vector2f position;
   
   public Widget(GameContainer gc){
     gc.getInput().addListener(this);
+    position = new Vector2f(0,0);
+  }
+
+  public Widget(GameContainer gc, Vector2f position){
+    gc.getInput().addListener(this);
+    this.position = position;
   }
   
   public abstract void update(GameContainer gc, int delta);

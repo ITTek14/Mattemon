@@ -6,6 +6,7 @@ package org.ittek14.mattemon.editor;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.ittek14.mattemon.gui.GUI;
 import org.ittek14.mattemon.utility.FileUtil;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +17,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class SpriteViewer extends BasicGameState {
+  private GUI gui;
   private ArrayList<File> imgFiles = new ArrayList<File>();
   private Animation loadedAnimation;
   private float zoom = 1;
@@ -105,6 +107,8 @@ public class SpriteViewer extends BasicGameState {
 
   @Override
   public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    gui = new GUI();
+    
   }
 
   public void updateList() {

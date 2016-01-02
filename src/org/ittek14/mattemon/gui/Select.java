@@ -1,0 +1,65 @@
+// list with selectable options
+package org.ittek14.mattemon.gui;
+
+import java.util.ArrayList;
+
+import org.newdawn.slick.Font;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
+import javafx.scene.shape.Rectangle;
+
+public class Select extends Widget {
+  protected ArrayList<Option> options;
+  protected int selected;
+  protected Font font;
+  protected int marginSize;
+  
+  public Select(GameContainer gc) {
+    super(gc);
+    selected = -1;
+    marginSize = 16;
+    font = gc.getDefaultFont();
+  }
+  
+  public void select(Option option) {
+    if(options.contains(option)) {
+      selected = options.indexOf(option);
+    }
+  }
+
+  public Option getSelected() {
+    if(selected >= 0 && selected < options.size()) {
+      return options.get(selected);
+    } 
+    return null;
+  }
+  
+  public void addOption(Option option) {
+    options.add(option);
+  }
+  
+  @Override
+  public void mousePressed(int button, int x, int y) {
+    if(button == 0 || button == 1)
+    {
+      if(new Rectangle(position.getX(), position.getY(), marginSize * 2 + font.getWidth(str)))
+      {
+        
+      }
+    }
+  }
+  
+  @Override
+  public void update(GameContainer gc, int delta) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void render(GameContainer gc, Graphics g) {
+    // TODO Auto-generated method stub
+    
+  }
+  
+}
