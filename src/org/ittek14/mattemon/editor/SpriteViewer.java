@@ -121,9 +121,14 @@ public class SpriteViewer extends BasicGameState {
   public void updateList() {
     // update list of avaliable files
     imgFiles = new ArrayList<File>();
+    File resources = new File("resources");
+    
+    if(resources.list().length < 1) {
+      return;
+    }
     
     //get all files in /resources
-    for(File f : new File("resources").listFiles(FileUtil.filesOnly)){
+    for(File f : resources.listFiles(FileUtil.filesOnly)){
       imgFiles.add(f);
     }
     
