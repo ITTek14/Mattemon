@@ -18,7 +18,7 @@ public class Editor extends StateBasedGame {
   public static void main(String[] args) {
     try {
       AppGameContainer appgc;
-      appgc = new AppGameContainer(new Editor("Mattemon Dev Tools"));
+      appgc = new AppGameContainer(new Editor("Mattemon Dev Tools Version.Banus"));
       appgc.setDisplayMode(800, 600, false);
       appgc.start();
       appgc.getGraphics().setAntiAlias(false);
