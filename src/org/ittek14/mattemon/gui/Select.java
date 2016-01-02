@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Vector2f;
 
-import javafx.scene.shape.Rectangle;
 
 public class Select extends Widget {
   protected ArrayList<Option> options;
   protected int selected;
   protected Font font;
   protected int marginSize;
+  protected Vector2f size;
   
   public Select(GameContainer gc) {
     super(gc);
@@ -43,7 +45,7 @@ public class Select extends Widget {
   public void mousePressed(int button, int x, int y) {
     if(button == 0 || button == 1)
     {
-      if(new Rectangle(position.getX(), position.getY(), marginSize * 2 + font.getWidth(str)))
+      if(new Rectangle(position.getX(), position.getY(), marginSize * 2 + font.getWidth("Banus"), marginSize).contains(x, y))
       {
         
       }

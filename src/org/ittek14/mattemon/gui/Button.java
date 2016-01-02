@@ -51,7 +51,7 @@ public abstract class Button extends Widget {
     if(pressed) {
       g.setColor(Color.darkGray);
     }else{
-      g.setColor(Color.lightGray);
+      g.setColor(Color.gray);
     }
     g.fill(bounds);
     

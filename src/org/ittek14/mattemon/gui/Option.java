@@ -2,7 +2,6 @@ package org.ittek14.mattemon.gui;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
 
 public class Option extends Widget {
   protected String text;
@@ -14,7 +13,6 @@ public class Option extends Widget {
   }
   
   public void onSelected(){};
-  
   
 
   public String getText() {
