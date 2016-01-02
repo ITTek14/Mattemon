@@ -29,6 +29,10 @@ public class Select extends Widget {
       selected = options.indexOf(option);
     }
   }
+  
+  public void updateSize() {
+    
+  }
 
   public Option getSelected() {
     if(selected >= 0 && selected < options.size()) {
