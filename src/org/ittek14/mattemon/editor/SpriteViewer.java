@@ -123,7 +123,7 @@ public class SpriteViewer extends BasicGameState {
     imgFiles = new ArrayList<File>();
     File resources = new File("resources");
     
-    if(resources.list().length < 1) {
+    if(resources.list() == null) {
       return;
     }
     
